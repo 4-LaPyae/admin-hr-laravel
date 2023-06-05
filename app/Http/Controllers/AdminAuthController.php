@@ -24,34 +24,34 @@ class AdminAuthController extends Controller
 
         return response()->json([
             'error' => false,
-            'message' => 'Register successful. Please login.',
+            'message' => 'Registration successful. Please login.',
             'data' => $admin,
-        ], 201);
-    }
+        ], 201);}
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if (Auth::guard('admin')->attempt($credentials)) {
-            $admin = Auth::guard('admin')->user();
-            $token = $admin->createToken('auth_token')->plainTextToken;
-
-            return response()->json([
-                'error' => false,
-                'message' => 'Successfully logged in as admin.',
-                'token' => $token,
-                'admin' => $admin,
+        public function login(Request $request)
+        {
+            $credentials = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required',
             ]);
+    
+            if (Auth::guard('admin')->attempt($credentials)) {
+                $admin = Auth::guard('admin')->user();
+                $token = $admin->createToken('auth_token')->plainTextToken;
+    
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Successfully logged in.',
+                    'token' => $token,
+                    'admin' => $admin,
+                ]);
+            }
+    
+            return response()->json([
+                'error' => true,
+                'message' => 'Invalid credentials',
+            ], 401);
         }
-
-        return response()->json([
-            'error' => true,
-            'message' => 'Invalid admin credentials.',
-        ], 401);
-    }
+    
 }
 

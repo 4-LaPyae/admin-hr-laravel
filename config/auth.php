@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     /*
@@ -39,16 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
-        
-        'employee' => [
-            'driver' => 'session',
-            'provider' => 'employees',
-        ],
     ],
 
     /*
@@ -74,16 +65,50 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
+    ],
+
+
+
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        // Other guards...
+    ],
+
+
+    'providers' => [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-        
-        'employees' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Employee::class,
-        ],
+        // Other providers...
     ],
+    
+
+
+
+    // 'guards' => [
+    //     'web' => [
+    //         'driver' => 'session',
+    //         'provider' => 'employees', // Ensure this matches your employee provider name
+    //     ],
+    //     // Other guards...
+    // ],
+
+
+    // 'providers' => [
+    //     'employees' => [
+    //         'driver' => 'eloquent',
+    //         'model' => App\Models\Employee::class,
+    //     ],
+    //     // Other providers...
+    // ],
 
     /*
     |--------------------------------------------------------------------------

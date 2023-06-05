@@ -1,59 +1,59 @@
 <?php
 
-namespace App\Http\Controllers;
+// namespace App\Http\Controllers;
 
-use App\Models\Employee;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+// use App\Models\Employee;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Hash;
 
-class EmployeeAuthController extends Controller
-{
-    public function register(Request $request)
-    {
-        $validate = $request->validate([
-            'fullname' => 'required|string',
-            'email' => 'required|email|unique:admins|unique:employees',
-            'phone' => 'required|string',
-            'password' => 'required|string|min:6',
-            'photo' => 'nullable',
-            'position' => 'required|string',
-            'salary' => 'required|numeric',
-        ]);
+// class EmployeeAuthController extends Controller
+// {
+//     public function register(Request $request)
+//     {
+//         $validate = $request->validate([
+//             'fullname' => 'required|string',
+//             'email' => 'required|email|unique:employees',
+//             'phone' => 'required|string',
+//             'password' => 'required|string|min:6',
+//             'photo' => 'nullable',
+//             'position' => 'required|string',
+//             'salary' => 'required|numeric',
+//         ]);
 
-        $validate['password'] = bcrypt($validate['password']);
+//         $validate['password'] = bcrypt($validate['password']);
 
-        $employee = Employee::create($validate);
+//         $employee = Employee::create($validate);
 
-        return response()->json([
-            'error' => false,
-            'message' => 'Registration successful. Please login.',
-            'data' => $employee,
-        ], 201);
-    }
+//         return response()->json([
+//             'error' => false,
+//             'message' => 'Registration successful. Please login.',
+//             'data' => $employee,
+//         ], 201);
+//     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+//     public function login(Request $request)
+//     {
+//         $credentials = $request->validate([
+//             'email' => 'required|email',
+//             'password' => 'required',
+//         ]);
 
-        if (Auth::guard('employee')->attempt($credentials)) {
-            $employee = Auth::guard('employee')->user();
-            $token = $employee->createToken('auth_token')->plainTextToken;
+//         if (Auth::guard('employee')->attempt($credentials)) {
+//             $employee = Auth::guard('employee')->user();
+//             $token = $employee->createToken('auth_token')->plainTextToken;
 
-            return response()->json([
-                'error' => false,
-                'message' => 'Successfully logged in as employee.',
-                'token' => $token,
-                'employee' => $employee,
-            ]);
-        }
+//             return response()->json([
+//                 'error' => false,
+//                 'message' => 'Successfully logged in.',
+//                 'token' => $token,
+//                 'employee' => $employee,
+//             ]);
+//         }
 
-        return response()->json([
-            'error' => true,
-            'message' => 'Invalid employee credentials.',
-        ], 401);
-    }
-}
+//         return response()->json([
+//             'error' => true,
+//             'message' => 'Invalid credentials',
+//         ], 401);
+//     }
+// }
