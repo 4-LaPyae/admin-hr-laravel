@@ -26,19 +26,19 @@ class AdminAuthController extends Controller
             'error' => false,
             'message' => 'Registration successful. Please login.',
             'data' => $admin,
-        ], 201);}
+        ]);}
 
         public function login(Request $request)
         {
+            return $request;
             $credentials = $request->validate([
                 'email' => 'required|email',
                 'password' => 'required',
             ]);
-    
+            return $credentials;
             if (Auth::guard('admin')->attempt($credentials)) {
                 $admin = Auth::guard('admin')->user();
                 $token = $admin->createToken('auth_token')->plainTextToken;
-    
                 return response()->json([
                     'error' => false,
                     'message' => 'Successfully logged in.',
@@ -54,4 +54,3 @@ class AdminAuthController extends Controller
         }
     
 }
-

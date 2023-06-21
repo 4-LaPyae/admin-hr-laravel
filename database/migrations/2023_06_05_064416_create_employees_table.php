@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('photo');
             $table->string('position');
-            $table->decimal('salary', 8, 2);
+            $table->string('salary')->nullable();
             $table->timestamps();
         });
     }
