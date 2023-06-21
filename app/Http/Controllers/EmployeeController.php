@@ -33,7 +33,7 @@ class EmployeeController extends Controller
             $image =$validate['photo'];
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads'), $imageName);
-            $path = "https://lapyae.sabahna.ml/".$imageName;
+            $path = "https://lapyae.sabahna.ml/uploads/".$imageName;
            $validate['photo'] = $path;
         }
         $employee = Employee::create($validate);
@@ -71,7 +71,7 @@ class EmployeeController extends Controller
             $image =$validate['photo'];
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads'), $imageName);
-            $path = "http://127.0.0.1:8000/uploads/".$imageName;
+            $path = "https://lapyae.sabahna.ml/uploads/".$imageName;
            $validate['photo'] = $path;
         }else{
             $validate['photo'] = $employee->photo;

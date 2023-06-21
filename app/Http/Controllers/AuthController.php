@@ -23,7 +23,7 @@ class AuthController extends Controller
             $image =$validate['photo'];
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads'), $imageName);
-            $path = "https://lapyae.sabahna.ml/".$imageName;
+            $path = "https://lapyae.sabahna.ml/uploads/".$imageName;
            $validate['photo'] = $path;
         }
          $admin = Admin::create($validate);
